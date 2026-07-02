@@ -150,6 +150,12 @@ section{position:relative}
 .bcard .detail{max-height:0;overflow:hidden;transition:max-height .5s var(--ease),margin .5s var(--ease),opacity .4s;opacity:0}
 .bcard.open .detail{max-height:240px;margin-block-start:14px;opacity:1}
 .bcard .detail p{color:var(--text-ink-soft);font-size:1.02rem}
+.bcard::before{content:"";position:absolute;inset-block-start:0;inset-inline:0;height:3px;border-start-start-radius:20px;border-start-end-radius:20px;background:linear-gradient(90deg,var(--brass-2),var(--brass-deep));transform:scaleX(0);transform-origin:inline-end;transition:transform .6s var(--ease)}
+.bcard.in::before{transform:scaleX(1);transform-origin:inline-start}
+.bcard .bidx{position:absolute;inset-block-start:24px;inset-inline-end:26px;font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.35rem;color:var(--brass);opacity:.32;transition:.4s var(--ease)}
+.bcard:hover .bidx{opacity:.72;transform:translateY(-2px)}
+/* heading accent (light band) */
+.sec-head h2 .accent{color:transparent;background:linear-gradient(120deg,var(--brass-deep),var(--brass));-webkit-background-clip:text;background-clip:text}
 
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px}
@@ -312,8 +318,8 @@ section{position:relative}
 <section class="band light" id="benefits">
   <div class="wrap">
     <div class="sec-head reveal"><div class="sec-tag">יתרונות לרשות</div>
-      <h2>נכס עירוני שמייצר<br>ערך קהילתי ותרבותי</h2>
-      <p>לחצו על כל יתרון כדי להרחיב.</p></div>
+      <h2>פסנתר אחד,<br><span class="accent">השפעה עירונית גדולה</span></h2>
+      <p>שישה יתרונות שהופכים פסנתר רחוב בודד לנכס עירוני שמעשיר את הקהילה ומחזק את תדמית הרשות. לחצו על כל יתרון כדי להרחיב.</p></div>
     <div class="benefits" id="benefits-grid"></div>
   </div>
 </section>
@@ -453,8 +459,8 @@ const BENEFITS=[
   {ic:'M20 6 9 17l-5-5',title:'פתרון ארוך טווח',text:'מוצר אמין ועמיד, מלווה במעטפת שירות ותחזוקה לאורך שנים — פתרון תרבותי לטווח הארוך.'}
 ];
 const bgrid=document.getElementById('benefits-grid');
-BENEFITS.forEach(b=>{const c=document.createElement('div');c.className='bcard reveal';
-  c.innerHTML=`<div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="${b.ic}"/></svg></div>
+BENEFITS.forEach((b,i)=>{const c=document.createElement('div');c.className='bcard reveal';
+  c.innerHTML=`<span class="bidx">0${i+1}</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="${b.ic}"/></svg></div>
     <h3>${b.title}</h3><div class="detail"><p>${b.text}</p></div>
     <div class="more"><span class="txt">קראו עוד</span><span class="chev">⌄</span></div>`;
   c.addEventListener('click',()=>{c.classList.toggle('open');c.querySelector('.more .txt').textContent=c.classList.contains('open')?'הסתירו':'קראו עוד';});
